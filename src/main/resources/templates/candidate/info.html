@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aplicação Thymeleaf</title>
+</head>
+
+<body>
+<div class="sodras">
+    <h2>Nome do candidato: <span th:text="${pessoa.nome}"></span></h2>
+    <h2>Email do candidato:<span th:text="${pessoa.email}"></span></h2>
+    <h2>Username do candidato:<span th:text="${pessoa.username}"></span></h2>
+</div>
+</body>
+</html>
