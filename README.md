@@ -1,5 +1,6 @@
 # Front-end Java de gestão de vagas
 ## Tecnologias
++ Maven
 + Spring Boot - Framework.
 + Spring Devtools - Quick reload.
 + Spring Web

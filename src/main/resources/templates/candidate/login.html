@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestão Vagas</title>
+    <title>Login candidato</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 h-screen flex justify-center items-center">
-    <form action="" class="flex gap-24">
+    <form th:action="@{/candidate/signIn}"
+          class="flex gap-24"
+          method="post"
+    >
         <div class="text-white max-w-80 text-6xl flex items-center justify-center text-center">
             Gestão de Vagas
         </div>
@@ -23,11 +26,18 @@
                    placeholder="Senha"
             />
             <button type="submit"
-                class="bg-green-900 w-96 p-4 rounded text-white hover:bg-green-700"
+                class="bg-green-900 w-96 p-2 rounded text-white hover:bg-green-700 text-lg"
             >
                 Entrar
             </button>
-            <a href="" class="text-green-700 block text-center hover:text-green-600 underline underline-offset-2">Crie sua conta</a>
+            <p class="text-red-400"
+               th:if="${error_message}"
+               th:text="${error_message}"
+            ></p>
+            <a href=""
+               class="text-green-700 block text-center hover:text-green-600 underline underline-offset-2">
+                Crie sua conta
+            </a>
         </div>
     </form>
 </body>
