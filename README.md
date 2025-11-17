@@ -3,7 +3,8 @@
 + Spring Boot - Framework.
 + Spring Devtools - Quick reload.
 + Spring Web
-+ Thymeleaf
++ TailwindCSS - estilização com CDN do tailwind.
++ Thymeleaf - frontend dinâmico.
 ## Como rodar a aplicação
 ### Rodar no terminal
 ```bash
