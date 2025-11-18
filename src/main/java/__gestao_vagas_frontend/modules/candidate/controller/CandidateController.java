@@ -39,7 +39,8 @@ public class CandidateController {
                     .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()))
                     .toList();
 
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(null,null, grants);
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(null,null, grants);
             auth.setDetails(response);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
