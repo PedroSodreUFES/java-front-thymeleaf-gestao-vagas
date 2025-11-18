@@ -1,5 +1,6 @@
 package __gestao_vagas_frontend.modules.candidate.service;
 
+import __gestao_vagas_frontend.modules.candidate.dto.LoginResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,7 +13,7 @@ import java.util.Map;
 @Service
 public class CandidateService {
 
-    public void login(String username, String password){
+    public LoginResponse login(String username, String password){
         RestTemplate rt = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -24,7 +25,8 @@ public class CandidateService {
 
         HttpEntity<Map<String, String>> request = new HttpEntity<>(data, headers);
 
-        String result = rt.postForObject("http://localhost:8080/candidate/auth", request, String.class);
-        System.out.println(result);
+        LoginResponse result = rt.postForObject("http://localhost:8080/candidate/auth", request, LoginResponse.class);
+
+        return result;
     }
 }

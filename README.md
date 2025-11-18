@@ -3,6 +3,7 @@
 + Maven
 + Spring Boot - Framework.
 + Spring Devtools - Quick reload.
++ Spring Security - Rotas protegidas.
 + Spring Web
 + TailwindCSS - estilização com CDN do tailwind.
 + Thymeleaf - frontend dinâmico.
