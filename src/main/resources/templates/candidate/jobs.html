@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vagas Disponíveis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900">
+<nav class="bg-gray-800 ">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-start text-white">
+            <div class="text-white space-x-4">
+                <a href="/candidate/profile">Profile</a>
+                <a href="/candidate/jobs" class="bg-gray-900 rounded-md px-3 py-2">Vagas</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container mx-auto mt-24 text-center">
+    <form>
+        <input type="text"
+               name="filter"
+               placeholder="Busque por vagas"
+               class="bg-gray-50 text-gray-500 rounded w-96 p-2 focus:outline-none focus:outline-green-600
+               focus:outline-1"
+        />
+        <button type="submit"
+            class="bg-green-600 text-white rounded p-2 px-4 ml-2
+            hover:bg-green-500 cursor-pointer duration-400"
+        >
+            Buscar
+        </button>
+    </form>
+
+    <div class="max-w-md mx-auto mt-10">
+        <form th:action="@{/candidate/jobs/apply}" method="post">
+            <div th:each="job: ${jobs}" class="text-white bg-gray-800 rounded-lg p-4 mb-4 shadow-md text-justify">
+                <input type="hidden" name="jobId" th:value="${job.id}" />
+                <h3 th:text="${job.description}" class="font-bold"></h3>
+                <span class="mt-4 font-bold block">Nível</span>
+                <span th:text="${job.level}" class="block"></span>
+                <span class="mt-4 font-bold block">Benefícios</span>
+                <span th:text="${job.benefits}" class="block"></span>
+                <button class="bg-gray-500 hover:bg-gray-400 font-bold py-2 px-4 rounded duration-300 mt-4">
+                    Aplicar
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
