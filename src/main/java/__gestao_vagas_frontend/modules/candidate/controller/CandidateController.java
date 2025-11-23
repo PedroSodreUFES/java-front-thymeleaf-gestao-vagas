@@ -1,12 +1,11 @@
 package __gestao_vagas_frontend.modules.candidate.controller;
 
+import __gestao_vagas_frontend.modules.candidate.dto.CreateCandidateDTO;
 import __gestao_vagas_frontend.modules.candidate.dto.JobDTO;
 import __gestao_vagas_frontend.modules.candidate.dto.LoginResponse;
 import __gestao_vagas_frontend.modules.candidate.dto.ProfileResponseDTO;
-import __gestao_vagas_frontend.modules.candidate.service.ApplyJobService;
-import __gestao_vagas_frontend.modules.candidate.service.CandidateProfileService;
-import __gestao_vagas_frontend.modules.candidate.service.FindJobsService;
-import __gestao_vagas_frontend.modules.candidate.service.LoginService;
+import __gestao_vagas_frontend.modules.candidate.service.*;
+import __gestao_vagas_frontend.utils.FormatErrorMessage;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,9 +42,18 @@ public class CandidateController {
     @Autowired
     private ApplyJobService applyJobService;
 
+    @Autowired
+    private CreateCandidateService createCandidateService;
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "candidate/login";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model){
+        model.addAttribute("candidate", new CreateCandidateDTO());
+        return "candidate/create";
     }
 
     @PostMapping("/signIn")
@@ -112,5 +120,16 @@ public class CandidateController {
         String token = authentication.getDetails().toString();
         this.applyJobService.execute(token, jobId);
         return "redirect:/candidate/jobs";
+    }
+
+    @PostMapping("/create")
+    public String createCandidate(CreateCandidateDTO candidate, Model model){
+        try {
+            this.createCandidateService.execute(candidate);
+        } catch(HttpClientErrorException ex) {
+            model.addAttribute("error_message", FormatErrorMessage.formatErrorMessage(ex.getResponseBodyAsString()));
+        }
+        model.addAttribute("candidate", candidate);
+        return "candidate/create";
     }
 }
