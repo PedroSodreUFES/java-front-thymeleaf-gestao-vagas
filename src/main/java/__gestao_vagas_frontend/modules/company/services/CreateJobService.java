@@ -1,6 +1,6 @@
 package __gestao_vagas_frontend.modules.company.services;
 
-import __gestao_vagas_frontend.modules.company.dto.CompanyLoginResponseDTO;
+import __gestao_vagas_frontend.modules.company.dto.CreateJobDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,29 +8,25 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.UUID;
 
 @Service
-public class CompanyLoginService {
+public class CreateJobService {
 
     @Value("${host.api.gestao.vagas}")
     private String host;
 
-    public CompanyLoginResponseDTO execute(String username, String password) {
+    public void execute(CreateJobDTO createJobDTO, String token) {
         RestTemplate rt = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
 
-        Map<String, String> data = new HashMap<>();
-        data.put("username", username);
-        data.put("password", password);
+        HttpEntity<CreateJobDTO> request = new HttpEntity<>(createJobDTO, headers);
 
-        HttpEntity<Map<String, String>> request = new HttpEntity<>(data, headers);
+        String url = host.concat("/company/job");
 
-        String url = host.concat("/company/auth");
-
-        return rt.postForObject(url, request, CompanyLoginResponseDTO.class);
+        rt.postForObject(url, request, String.class);
     }
 }
